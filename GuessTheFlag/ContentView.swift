@@ -8,17 +8,18 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State private var showingAlert = false
+    
     var body: some View {
-        VStack{
-            LinearGradient(gradient: Gradient(colors: [.green, .red, .gray]), startPoint: .top, endPoint: .bottom)
-            
-            RadialGradient(gradient: Gradient(colors: [.blue, .black, .pink, .purple]), center: .center, startRadius: 0, endRadius: 200)
-            
-            AngularGradient(gradient: Gradient(colors: [.red, .yellow, .green, .blue, .purple, .red, .black]), center: .center)
-
-
+        Form{
+            Button("Show Alert") {
+                        self.showingAlert = true
+                    }
+            .alert(isPresented: $showingAlert, content: {
+                Alert(title: Text("K"), message: Text("K"), dismissButton: .default(Text("K")))
+            })
         }
-        
 
     }
 }
