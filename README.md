@@ -7,6 +7,6 @@
 ## About the app
 As you have already guessed, its an app about guessing flags!
 
-### More SwiftUI Stuff
+## More SwiftUI Stuff
 I learnt about the use of ZStack and how to use it to stack views on top of each other.
 Also styling views and fonts with shapes, borders, shadows, font size and weight 
