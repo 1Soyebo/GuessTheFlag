@@ -18,8 +18,7 @@ struct ContentView: View {
     var body: some View {
         ZStack{
             LinearGradient(gradient: Gradient(colors: [.blue, .black]), startPoint: .top, endPoint: .bottom)
-                .edgesIgnoringSafeArea(.all).edgesIgnoringSafeArea(.all)
-
+                .edgesIgnoringSafeArea(.all)
             VStack(spacing: 30) {
                     VStack {
                         Text("Tap the flag of")
@@ -27,6 +26,8 @@ struct ContentView: View {
                         
                         Text(countries[correctAnswer])
                             .foregroundColor(Color.white)
+                            .font(.largeTitle)
+                            .fontWeight(.black)
                         // etc
                     }
 
