@@ -9,9 +9,7 @@ import SwiftUI
 
 
 struct FlagImage: View {
-    
     var imageTitle: String
-    
     var body: some View{
         Image(imageTitle)
             .renderingMode(.original)
@@ -26,7 +24,9 @@ struct ContentView: View {
     @State private var score_number = 0
     @State private var showingScore = false
     @State private var scoreTitle = ""
-    
+    @State private var isCorrect = false
+    @State private var animationAmount: Double = 0
+    @State private var opacityNum: Double = 1
     @State private var countries = ["Estonia", "France", "Germany", "Ireland", "Italy", "Nigeria", "Poland", "Russia", "Spain", "UK", "US"].shuffled()
     @State private var correctAnswer = Int.random(in: 0...2)
     
@@ -49,13 +49,19 @@ struct ContentView: View {
                 ForEach(0 ..< 3) { number in
                     Button(action: {
                         self.flagTapped(number)
-                        }) {
-                        
-                        FlagImage(imageTitle: self.countries[number])
-                            
+                        if number == correctAnswer{
+                            withAnimation(.easeIn(duration: 1.5)) {
+                                self.animationAmount += 360
+                                opacityNum = 0.25
+                                
                         }
-                    
-                    Spacer()
+                        }
+                        
+                        }) {
+                        FlagImage(imageTitle: self.countries[number])
+                    }
+                    .rotation3DEffect(.degrees((number == correctAnswer) ? animationAmount:0), axis: (x: 0, y: 1, z: 0))
+                    .opacity((number != correctAnswer ? opacityNum:1))
                 }
                 
                 Text("Score: \(score_number)")
@@ -64,8 +70,10 @@ struct ContentView: View {
                 
             }
 
-        }.alert(isPresented: $showingScore) {
+        }
+        .alert(isPresented: $showingScore) {
             Alert(title: Text(scoreTitle), message: Text("Your score is \(score_number)"), dismissButton: .default(Text("Continue")) {
+                opacityNum = 1
                 self.askQuestion()
             })
         }
